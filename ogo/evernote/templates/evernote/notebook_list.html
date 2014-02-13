@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>	 
+	  {% load staticfiles %}
+	  <link type="text/css" rel="stylesheet" href="{% static 'evernote/stylesheet.css' %}"/>
+
+	  <title>Dunke's Notebooks</title>
+	</head>
+	<body>
+	  <header>
+	    <div id="logo">
+	      <h2> <a href="{% url 'index' %}"> OGO </a> </h2>
+	    </div>
+	    <div id="user">
+	      Dunke Zhou
+	    </div>
+	  </header>
+
+	    <div id="binder_list_bar">
+	      <h3 id="binder_list_header"> <a href="{% url 'index' %}"/> Notebooks </h3>
+	      <ul id="binder_list">
+  	        	{% for notebook in notebooks %}	    
+  		 	   <li> <a href="{% url 'binder_detail' binder.id %}">   {{ notebook.title | capfirst}} </a> </li>
+			   {% endfor %}
+		   </ul>
+	    </div>
+	  
+	    <div id="column2">
+	        {% for notebook in notebooks %}
+		<div class="material">		    
+		 <a href="{% url 'binder_detail' binder.id %}">  <h3 class="material_header">  {{ notebook.title | capfirst}} </h3> </a>
+		  <ul class="material_list">
+		    {% for note in notebook.notes %}
+		    <li> <a class="note_link" href="{% url 'note_detail' note.guid %}"> {{ note.title | capfirst }} </a> </li>
+		    {% endfor %}
+		   </ul>
+		</div>
+		{% endfor %}
+		
+		<div id="buffer"> 
+			<ul class="buffer_list">
+				<li> Buffer 1 </li>
+				<li> Buffer 2 </li>
+			</ul>
+		</div>
+	</body>
+</html>
+
+
+
